@@ -1,10 +1,12 @@
-import LoginPage from './pages/Login/Login';
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
+import { Router } from './config/routes';
+
 
 function App() {
   return (
     <div className="App">
-      <LoginPage />
+      <RouterProvider router={Router} />
     </div>
   );
 }

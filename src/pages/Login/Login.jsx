@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './login.css';
-import { ColorVariables } from '../../constants/ColorVariables.jsx';
+import { ColorVariables } from '../../constants/ColorVariables';
 import { applyColorVariables, handleFormSubmit, handleInputChange } from './login.js';
 const LoginPage = () => {
     const [formData, setFormData] = useState({
@@ -77,10 +77,6 @@ const LoginPage = () => {
                         {isLoading ? 'Signing in...' : 'Sign In'}
                     </button>
                 </form>
-
-                <div className="login-footer">
-                    <p>Don't have an account? <a href="#" className="signup-link">Sign up</a></p>
-                </div>
             </div>
         </div>
     );

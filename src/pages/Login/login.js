@@ -60,9 +60,10 @@ export const handleFormSubmit = async (e, formData, setErrors, setIsLoading) => 
             const user = data.user;
             localStorage.setItem('authToken', token);
             localStorage.setItem('user', JSON.stringify(user));
+            window.location.href = '/dashboard';
 
         } else {
-            setErrors({ api: responseData.message || 'Login failed' });
+            setErrors({ password: 'Wrong password' });
         }
     } catch (error) {
         setErrors({ api: 'Network error. Please try again.' });
