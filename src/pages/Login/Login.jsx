@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import './login.css';
 import { ColorVariables } from '../../constants/ColorVariables';
-import { applyColorVariables, handleFormSubmit, handleInputChange } from './login.js';
+import { handleFormSubmit, handleInputChange } from './login.js';
+import { applyColorVariables } from '../common.js';
 const LoginPage = () => {
     const [formData, setFormData] = useState({
         phone: '',
@@ -56,6 +57,9 @@ const LoginPage = () => {
                             onChange={handleChange}
                             className={`form-input ${errors.password ? 'error' : ''}`}
                             placeholder="Enter your password"
+                            autoComplete="off"
+                            autoCorrect="off"
+                            spellCheck="false"
                         />
                         {errors.password && <span className="error-message">{errors.password}</span>}
                     </div>

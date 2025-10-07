@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginPage from '../pages/Login/Login.jsx';
-// import Dashboard from '../pages/Dashboard/Dashboard';
 import { Paths } from '../constants/Paths.jsx';
 import Dashboard from '../pages/Dashboard/Dashboard';
+import Products from '../pages/Products/Products';
 
 
 export const Router = createBrowserRouter([
@@ -13,5 +13,11 @@ export const Router = createBrowserRouter([
   {
     path: Paths.Dashboard,
     element: <Dashboard />,
+    children: [
+      {
+        path: `:organizationId${Paths.Products}`,
+        element: <Products />,
+      }
+    ]
   }
 ]);

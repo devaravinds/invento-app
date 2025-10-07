@@ -25,15 +25,6 @@ export const handleInputChange = (e, setFormData, errors, setErrors) => {
     }
 };
 
-export const applyColorVariables = (colorVars) => {
-    const root = document.documentElement;
-    Object.entries(colorVars).forEach(([property, value]) => {
-        if (value) {
-            root.style.setProperty(property, value);
-        }
-    });
-};
-
 export const handleFormSubmit = async (e, formData, setErrors, setIsLoading) => {
     e.preventDefault();
 

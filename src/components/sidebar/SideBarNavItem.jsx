@@ -1,4 +1,4 @@
-import React from "react";
+import "./sidebarNavItem.css";
 
 const SideBarNavItem = ({ icon, label, isActive, onClick }) => {
   return (
