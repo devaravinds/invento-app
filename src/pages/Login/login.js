@@ -1,3 +1,5 @@
+import { Paths } from '../../constants/Paths';
+
 const validateForm = (formData) => {
     const newErrors = {};
 
@@ -25,7 +27,7 @@ export const handleInputChange = (e, setFormData, errors, setErrors) => {
     }
 };
 
-export const handleFormSubmit = async (e, formData, setErrors, setIsLoading) => {
+export const handleFormSubmit = async (e, formData, setErrors, setIsLoading, navigate) => {
     e.preventDefault();
 
     const newErrors = validateForm(formData);
@@ -51,7 +53,7 @@ export const handleFormSubmit = async (e, formData, setErrors, setIsLoading) => 
             const user = data.user;
             localStorage.setItem('authToken', token);
             localStorage.setItem('user', JSON.stringify(user));
-            window.location.href = '/dashboard';
+            navigate(Paths.Dashboard);
 
         } else {
             setErrors({ password: 'Wrong password' });

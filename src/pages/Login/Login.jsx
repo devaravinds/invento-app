@@ -3,11 +3,15 @@ import './login.css';
 import { ColorVariables } from '../../constants/ColorVariables';
 import { handleFormSubmit, handleInputChange } from './login.js';
 import { applyColorVariables } from '../common.js';
+import { useNavigate } from 'react-router-dom';
+
 const LoginPage = () => {
     const [formData, setFormData] = useState({
         phone: '',
         password: ''
     });
+
+    const navigate = useNavigate();
 
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +22,7 @@ const LoginPage = () => {
     }, []);
 
     const handleChange = (e) => handleInputChange(e, setFormData, errors, setErrors);
-    const handleSubmit = (e) => handleFormSubmit(e, formData, setErrors, setIsLoading)
+    const handleSubmit = (e) => handleFormSubmit(e, formData, setErrors, setIsLoading, navigate )
 
     return (
         <div className="login-container">
