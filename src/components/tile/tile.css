@@ -1,0 +1,59 @@
+.tile {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 750px;
+  height: 120px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  padding: 1%;
+}
+
+.tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tile-image {
+  width: 15%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 12px; /* only round the left side */
+}
+
+.tile-content {
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start; /* ✅ ensures flex children (like h3, p) align left */
+  text-align: left;        /* ✅ ensures text inside aligns left */
+  overflow: hidden;
+  width: 90%;
+}
+
+.tile-name {
+  font-size: 16px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  align-self: flex-start;
+}
+
+.tile-description {
+  font-size: 14px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
