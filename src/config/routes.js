@@ -3,7 +3,11 @@ import LoginPage from '../pages/Login/Login.jsx';
 import { Paths } from '../constants/Paths.jsx';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Products from '../pages/Products/Products';
-
+import Outlets from '../pages/Outlets/Outlets';
+import People from '../pages/People/People';
+import Transactions from '../pages/Transactions/Transactions';
+import Units from '../pages/Units/Units';
+import Settings from '../pages/Settings/Settings';
 
 export const Router = createBrowserRouter([
   {
@@ -15,9 +19,29 @@ export const Router = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path: `:organizationId${Paths.Products}`,
+        path: ':organizationId' + Paths.Products,
         element: <Products />,
-      }
-    ]
-  }
+      },
+      {
+        path: ':organizationId' + Paths.Outlets,
+        element: <Outlets />,
+      },
+      {
+        path: ':organizationId' + Paths.People,
+        element: <People />,
+      },
+      {
+        path: ':organizationId' + Paths.Transactions,
+        element: <Transactions />,
+      },
+      {
+        path: ':organizationId' + Paths.Units,
+        element: <Units />,
+      },
+      {
+        path: ':organizationId' + Paths.Settings,
+        element: <Settings />,
+      },
+    ],
+  },
 ]);

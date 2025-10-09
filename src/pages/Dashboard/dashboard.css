@@ -1,0 +1,18 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh; /* full viewport height */
+  overflow: hidden; /* prevent sidebar + content from scrolling together */
+}
+
+.dashboard-container > .sidebar {
+  flex: 0 0 250px; /* fixed width for sidebar */
+  height: 100%; 
+  overflow: hidden; /* sidebar itself won't scroll */
+}
+
+.dashboard-content {
+  flex: 1; /* take remaining width */
+  height: 100%;
+  overflow-y: auto; /* only this section scrolls vertically */
+  padding: 20px; /* optional padding for content */
+}

@@ -5,18 +5,19 @@ import "./sidebar.css";
 import { ColorVariables } from '../../constants/ColorVariables';
 import { applyColorVariables } from "../../pages/common";
 
-const Sidebar = ({ currentOrganization }) => {
-  const [activeItem, setActiveItem] = useState("Dashboard");
+const Sidebar = ({ currentOrganization, activeItem, setActiveItem }) => {
 
   useEffect(() => {
     applyColorVariables(ColorVariables)
   }, []);
 
   const navItems = [
-    { label: "Products", icon: "📦" },
-    { label: "Orders", icon: "🧾" },
-    { label: "Customers", icon: "👥" },
-    { label: "Settings", icon: "⚙️" },
+    { path: '/products', label: "Products", icon: "📦" },
+    { path: '/outlets', label: "Outlets", icon: "🏬" },
+    { path: '/people', label: "People", icon: "👥" },
+    { path: '/transactions', label: "Transactions", icon: "🧾" },
+    { path: '/units', label: "Units", icon: "🔢" },
+    { path: '/settings', label: "Settings", icon: "⚙️" },
   ];
 
   return (
@@ -31,8 +32,8 @@ const Sidebar = ({ currentOrganization }) => {
           key={item.label}
           icon={item.icon}
           label={item.label}
-          isActive={activeItem === item.label}
-          onClick={() => setActiveItem(item.label)}
+          isActive={activeItem === item.path}
+          onClick={() => setActiveItem(item.path)}
         />
       ))}
     </div>
