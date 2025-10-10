@@ -4,7 +4,7 @@ import { Paths } from '../constants/Paths.jsx';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Products from '../pages/Products/Products';
 import Outlets from '../pages/Outlets/Outlets';
-import People from '../pages/People/People';
+import Partners from '../pages/Partners/Partners';
 import Transactions from '../pages/Transactions/Transactions';
 import Units from '../pages/Units/Units';
 import Settings from '../pages/Settings/Settings';
@@ -27,8 +27,8 @@ export const Router = createBrowserRouter([
         element: <Outlets />,
       },
       {
-        path: ':organizationId' + Paths.People,
-        element: <People />,
+        path: ':organizationId' + Paths.Partners,
+        element: <Partners />,
       },
       {
         path: ':organizationId' + Paths.Transactions,

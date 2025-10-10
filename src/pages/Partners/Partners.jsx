@@ -3,43 +3,42 @@ import { useNavigate } from "react-router-dom";
 import { fetchData } from "../common";
 import Error from "../Error/Error";
 import Tile from "../../components/tile/Tile";
-import "./products.css";
+import "./partners.css";
 import { Paths } from "../../constants/Paths";
 
-const Products = () => {
+const Partners = () => {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
+  const [partners, setPartners] = useState([]);
   const [hasError, setHasError] = useState(false);
   useEffect(() => {
       fetchData(
         navigate, 
-        setProducts, 
+        setPartners, 
         setHasError, 
-        Paths.Products, 
+        Paths.Partners, 
         { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
       );
   }, [navigate])
-
   if (hasError) return <Error />;
   return (
-    <div className="products-page">
-      <h2 className="products-title">Products</h2>
-      <div className="products-grid">
-        {products.length > 0 ? (
-          products.map((product) => (
+    <div className="partners-page">
+      <h2 className="partners-title">Partners</h2>
+      <div className="partners-grid">
+        {partners.length > 0 ? (
+          partners.map((partner) => (
             <Tile
-              key={product.id}
+              key={partner.id}
               image="https://ncfa.co.in/wp-content/uploads/2024/02/Areca-nut-fibre.jpg"
-              name={product.name}
-              description={product.description}
+              name={partner.name}
+              description={partner.description}
             />
           ))
         ) : (
-          <p className="no-products">No products available.</p>
+          <p className="no-partners">No partners available.</p>
         )}
       </div>
     </div>
   );
 };
 
-export default Products;
+export default Partners;

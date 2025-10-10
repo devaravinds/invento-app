@@ -3,7 +3,7 @@ export const Paths = {
     Dashboard: "/dashboard",
     Products: "/products",
     Outlets: "/outlets",
-    People: "/people",
+    Partners: "/partners",
     Transactions: "/transactions",
     Units: "/units",
     Settings: "/settings",

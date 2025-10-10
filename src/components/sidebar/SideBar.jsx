@@ -14,7 +14,7 @@ const Sidebar = ({ currentOrganization, activeItem, setActiveItem }) => {
   const navItems = [
     { path: '/products', label: "Products", icon: "📦" },
     { path: '/outlets', label: "Outlets", icon: "🏬" },
-    { path: '/people', label: "People", icon: "👥" },
+    { path: '/partners', label: "Partners", icon: "👥" },
     { path: '/transactions', label: "Transactions", icon: "🧾" },
     { path: '/units', label: "Units", icon: "🔢" },
     { path: '/settings', label: "Settings", icon: "⚙️" },
