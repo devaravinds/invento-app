@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './login.css';
 import { ColorVariables } from '../../constants/ColorVariables';
 import { handleFormSubmit, handleInputChange } from './login.js';
-import { applyColorVariables } from '../common.js';
+import { applyColorVariables } from '../../common.js';
 import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
@@ -74,7 +74,7 @@ const LoginPage = () => {
                             <span className="checkmark"></span>
                             Remember me
                         </label>
-                        <a href="#" className="forgot-password">Forgot Password?</a>
+                        <a href="www.example.com" className="forgot-password">Forgot Password?</a>
                     </div>
 
                     <button

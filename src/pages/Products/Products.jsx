@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchData } from "../common";
+import { fetchData } from "../../common";
 import Error from "../Error/Error";
 import Tile from "../../components/tile/Tile";
 import "./products.css";

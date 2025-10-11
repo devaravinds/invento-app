@@ -1,6 +1,6 @@
 import "./tile.css";
 
-const Tile = ({ image, name, description }) => {
+const Tile = ({ image, name, description, onEdit }) => {
   return (
     <div className="tile">
       <img src={image} alt={name} className="tile-image" />
@@ -8,6 +8,9 @@ const Tile = ({ image, name, description }) => {
         <h3 className="tile-name">{name}</h3>
         <p className="tile-description">{description}</p>
       </div>
+      <button className="edit-button" onClick={onEdit}>
+        Edit
+      </button>
     </div>
   );
 };

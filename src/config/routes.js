@@ -8,6 +8,7 @@ import Partners from '../pages/Partners/Partners';
 import Transactions from '../pages/Transactions/Transactions';
 import Units from '../pages/Units/Units';
 import Settings from '../pages/Settings/Settings';
+import CreateNewPartner from '../pages/CreateNewPartner/CreateNewPartner';
 
 export const Router = createBrowserRouter([
   {
@@ -29,6 +30,12 @@ export const Router = createBrowserRouter([
       {
         path: ':organizationId' + Paths.Partners,
         element: <Partners />,
+        children: [
+          {
+            path: ':partnerId' + Paths.EditPartner,
+            element: <CreateNewPartner/>
+          }
+        ]
       },
       {
         path: ':organizationId' + Paths.Transactions,

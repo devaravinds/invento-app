@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import SideBarNavItem from "./SideBarNavItem";
 import OrganizationSelector from "./OrganizationSelector";
 import "./sidebar.css";
 import { ColorVariables } from '../../constants/ColorVariables';
-import { applyColorVariables } from "../../pages/common";
+import { applyColorVariables } from "../../common";
 
 const Sidebar = ({ currentOrganization, activeItem, setActiveItem }) => {
 

@@ -57,3 +57,20 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+
+.edit-button {
+  top: 8px;
+  right: 8px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}

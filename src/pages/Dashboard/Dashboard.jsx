@@ -5,7 +5,7 @@ import SideBar from "../../components/sidebar/SideBar";
 import ErrorBoundary from "../../boundary/ErrorBoundary";
 import Error from "../Error/Error";
 import "./dashboard.css";
-import { fetchData } from "../common";
+import { fetchData } from "../../common";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [organizations, setOrganizations] = useState([]);
