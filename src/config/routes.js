@@ -34,6 +34,10 @@ export const Router = createBrowserRouter([
           {
             path: ':partnerId' + Paths.EditPartner,
             element: <CreateNewPartner/>
+          },
+          {
+            path: Paths.AddPartner,
+            element: <CreateNewPartner/>
           }
         ]
       },

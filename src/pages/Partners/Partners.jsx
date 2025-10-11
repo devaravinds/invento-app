@@ -5,6 +5,8 @@ import Error from "../Error/Error";
 import Tile from "../../components/tile/Tile";
 import "./partners.css";
 import { Paths } from "../../constants/Paths";
+import { AddNewButton } from "../../components/addNewButton/AddNewButton";
+import { handleAddNewClick } from "./handlers";
 
 const Partners = () => {
   const navigate = useNavigate();
@@ -24,14 +26,23 @@ const Partners = () => {
   }, [navigate, location.pathname]);
 
   useEffect(() => {
-    setIsOutletActive(location.pathname.includes(Paths.EditPartner));
+    setIsOutletActive(
+      location.pathname.includes(Paths.EditPartner) ||
+      location.pathname.includes(Paths.AddPartner)
+    );
   }, [location.pathname]);
 
   if (hasError) return <Error />;
 
   return (
     <div className="partners-page">
-      <h2 className="partners-title">Partners</h2>
+      <div className="partners-header">
+        <h2 className="partners-title">Partners</h2>
+        <AddNewButton
+          text= "+ Add New"
+          onClick={() => handleAddNewClick(navigate)}
+        />
+      </div>
       <div className="partners-grid">
         {partners.length > 0 ? (
           partners.map((partner) => (

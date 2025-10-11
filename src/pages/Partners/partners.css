@@ -5,6 +5,29 @@
     text-align: left;
 }
 
+.partners-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px; /* Adds space between the header and the grid */
+}
+
+.add-new-btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff; /* A standard blue color, change as needed */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-new-btn:hover {
+  background-color: #0056b3; /* A darker blue for hover effect */
+}
+
 .partners-content {
   transition: filter 0.3s ease;
 }

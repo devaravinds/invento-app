@@ -1,3 +1,4 @@
+import EditButton from "../editButton/EditButton";
 import "./tile.css";
 
 const Tile = ({ image, name, description, onEdit }) => {
@@ -8,9 +9,10 @@ const Tile = ({ image, name, description, onEdit }) => {
         <h3 className="tile-name">{name}</h3>
         <p className="tile-description">{description}</p>
       </div>
-      <button className="edit-button" onClick={onEdit}>
-        Edit
-      </button>
+      <EditButton
+        text="Edit"
+        onClick={onEdit}
+      />
     </div>
   );
 };
