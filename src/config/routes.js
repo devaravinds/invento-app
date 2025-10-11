@@ -9,6 +9,7 @@ import Transactions from '../pages/Transactions/Transactions';
 import Units from '../pages/Units/Units';
 import Settings from '../pages/Settings/Settings';
 import CreateNewPartner from '../pages/CreateNewPartner/CreateNewPartner';
+import Inventory from '../pages/Inventory/Inventory.jsx';
 
 export const Router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const Router = createBrowserRouter([
             element: <CreateNewPartner/>
           }
         ]
+      },
+      {
+        path: ':organizationId' + Paths.Inventory,
+        element:<Inventory />
       },
       {
         path: ':organizationId' + Paths.Transactions,

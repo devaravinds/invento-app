@@ -4,6 +4,7 @@ export const Paths = {
     Products: "/products",
     Outlets: "/outlets",
     Partners: "/partners",
+    Inventory: "/inventory",
     Transactions: "/transactions",
     Units: "/units",
     Settings: "/settings",
