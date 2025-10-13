@@ -9,5 +9,6 @@ export const Paths = {
     Units: "/units",
     Settings: "/settings",
     EditPartner: "/edit-partner",
-    AddPartner: "add-partner"
+    AddPartner: "add-partner",
+    AddTransaction: "add-transaction"
 }

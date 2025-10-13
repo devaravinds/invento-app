@@ -4,6 +4,7 @@ import { ColorVariables } from '../../constants/ColorVariables';
 import { handleFormSubmit, handleInputChange } from './login.js';
 import { applyColorVariables } from '../../common.js';
 import { useNavigate } from 'react-router-dom';
+import { Paths } from '../../constants/Paths.jsx';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({
@@ -18,6 +19,9 @@ const LoginPage = () => {
 
 
     useEffect(() => {
+        if(localStorage.getItem('authToken')) {
+            navigate(Paths.Dashboard)
+        }
         applyColorVariables(ColorVariables)
     }, []);
 

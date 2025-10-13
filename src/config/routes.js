@@ -10,6 +10,7 @@ import Units from '../pages/Units/Units';
 import Settings from '../pages/Settings/Settings';
 import CreateNewPartner from '../pages/CreateNewPartner/CreateNewPartner';
 import Inventory from '../pages/Inventory/Inventory.jsx';
+import AddNewTransaction from '../pages/AddNewTransaction/AddNewTransaction.jsx';
 
 export const Router = createBrowserRouter([
   {
@@ -49,6 +50,12 @@ export const Router = createBrowserRouter([
       {
         path: ':organizationId' + Paths.Transactions,
         element: <Transactions />,
+        children: [
+          {
+            path: Paths.AddTransaction,
+            element: <AddNewTransaction/>
+          }
+        ]
       },
       {
         path: ':organizationId' + Paths.Units,
