@@ -23,7 +23,7 @@ const Transactions = () => {
         Paths.Transactions, 
         { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
       );
-  }, [navigate])
+  }, [navigate, location.pathname])
 
   useEffect(() => {
     setIsOutletActive(

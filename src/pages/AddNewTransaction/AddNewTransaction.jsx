@@ -4,6 +4,7 @@ import { TransactionType } from "../../constants/Transaction";
 import "./addNewTransaction.css";
 import { fetchData } from "../../common";
 import { Paths } from "../../constants/Paths";
+import { handleSubmit } from "./handlers";
 
 
 const AddNewTransaction = () => {
@@ -12,18 +13,20 @@ const AddNewTransaction = () => {
   const [products, setProducts] = useState([]);
   const [partners, setPartners] = useState([]);
   const [outlets, setOutlets] = useState([]);
+  const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const [formData, setFormData] = useState({
-    product: "",
-    partner: "",
+    productId: "",
+    partnerId: "",
     rate: "",
-    outlet: "",
-    quantity: "",
+    outletId: "",
+    quantity: {
+      count: "", 
+      unit: ""
+    },
     transactionType: TransactionType.PURCHASE
   });
-
-  const baseUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     fetchData(
@@ -47,33 +50,33 @@ const AddNewTransaction = () => {
       Paths.Outlets,
       { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
     )
+    fetchData(
+      navigate,
+      setUnits,
+      setHasError,
+      Paths.Units,
+      { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
+    )
     setLoading(false)
   }, [navigate])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(`${baseUrl}/transactions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      });
-
-      if (!response.ok) throw new Error("Failed to add transaction");
-
-      alert("Transaction added successfully!");
-      navigate("/transactions");
-    } catch (err) {
-      console.error(err);
-      alert("Error adding transaction");
+    // If the change is for nested quantity fields
+    if (name === "count" || name === "unit") {
+      setFormData((prev) => ({
+        ...prev,
+        quantity: {
+          ...prev.quantity,
+          [name]: value
+        }
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value
+      }));
     }
   };
 
@@ -82,11 +85,11 @@ const AddNewTransaction = () => {
   return (
     <div className="add-transaction-container">
       <h2>Add New Transaction</h2>
-      <form onSubmit={handleSubmit} className="add-transaction-form">
+      <form onSubmit={(e) => handleSubmit(e, navigate, formData, setHasError)} className="add-transaction-form">
         <label>
           Product:
           <select
-            name="product"
+            name="productId"
             value={formData.product}
             onChange={handleChange}
             required
@@ -103,7 +106,7 @@ const AddNewTransaction = () => {
         <label>
           Partner:
           <select
-            name="partner"
+            name="partnerId"
             value={formData.partner}
             onChange={handleChange}
             required
@@ -120,7 +123,7 @@ const AddNewTransaction = () => {
         <label>
           Outlet:
           <select
-            name="outlet"
+            name="outletId"
             value={formData.outlet}
             onChange={handleChange}
             required
@@ -149,11 +152,28 @@ const AddNewTransaction = () => {
           Quantity:
           <input
             type="number"
-            name="quantity"
-            value={formData.quantity}
+            name="count"
+            value={formData.quantity.count}
             onChange={handleChange}
             required
           />
+        </label>
+
+        <label>
+          Unit:
+          <select
+            name="unit"
+            value={formData.quantity.unit}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Unit</option>
+            {units.map((o) => (
+              <option key={o.id} value={o.id}>
+                {o.name}
+              </option>
+            ))}
+          </select>
         </label>
 
         <label>
