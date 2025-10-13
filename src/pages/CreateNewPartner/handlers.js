@@ -1,3 +1,5 @@
+import { Paths } from "../../constants/Paths";
+
 export const handleChange = (e, setFormData) => {
   const { name, value } = e.target;
   setFormData((prev) => ({
@@ -40,30 +42,31 @@ export const handleSubmit = async (e, partnerId, formData, navigate) => {
   }
 };
 
-export const fetchPartner = async (partnerId, setFormData) => {
+export const fetchPartner = async (partnerId, setFormData, setError) => {
   const token = localStorage.getItem('authToken');
   const organizationId = sessionStorage.getItem('currentOrganizationId')
   try {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/partners/${partnerId}`, {
+    const response = await fetch(`${process.env.REACT_APP_API_URL}${Paths.Partners}/${partnerId}`, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "organization-id": organizationId
       }
     });
 
-    if (res.ok) {
-      const data = (await res.json()).data;
-      console.log(data)
+    const responseJson = await response.json();
+
+    if (responseJson.statusCode == 200) {
+      const data = responseJson.data
       setFormData({
         name: data.name || "",
         description: data.description || "",
         phone: data.phone || "",
       });
     } else {
-      alert("Failed to fetch partner data");
+      setError(response.message)
     }
   } catch (error) {
     console.error(error);
-    alert("Something went wrong while fetching partner data!");
+    setError(error.message)
   }
 };

@@ -1,3 +1,5 @@
+import './addNewButton.css'
+
 export const AddNewButton = ({text, onClick}) => {
   return (
     <button

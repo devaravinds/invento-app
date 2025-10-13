@@ -5,6 +5,7 @@ import "./addNewTransaction.css";
 import { fetchData } from "../../common";
 import { Paths } from "../../constants/Paths";
 import { handleSubmit } from "./handlers";
+import SubmitButton from "../../components/submitButton/SubmitButton";
 
 
 const AddNewTransaction = () => {
@@ -188,9 +189,9 @@ const AddNewTransaction = () => {
           </select>
         </label>
 
-        <button type="submit" className="submit-btn">
-          Add Transaction
-        </button>
+        <SubmitButton
+          text= "Add Transaction"
+        />
       </form>
     </div>
   );

@@ -4,6 +4,7 @@ import { fetchData } from "../../common";
 import Error from "../Error/Error";
 import Tile from "../../components/tile/Tile";
 import "./partners.css";
+import "../../styles/modal.css"
 import { Paths } from "../../constants/Paths";
 import { AddNewButton } from "../../components/addNewButton/AddNewButton";
 import { handleAddNewClick } from "./handlers";
@@ -12,14 +13,14 @@ const Partners = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [partners, setPartners] = useState([]);
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState(null);
   const [isOutletActive, setIsOutletActive] = useState(false);
 
   useEffect(() => {
     fetchData(
       navigate,
       setPartners,
-      setHasError,
+      setError,
       Paths.Partners,
       { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
     );
@@ -32,7 +33,7 @@ const Partners = () => {
     );
   }, [location.pathname]);
 
-  if (hasError) return <Error />;
+  if (error) return <Error message={error} />;
 
   return (
     <div className="partners-page">
@@ -48,7 +49,7 @@ const Partners = () => {
           partners.map((partner) => (
             <Tile
               key={partner.id}
-              image="https://ncfa.co.in/wp-content/uploads/2024/02/Areca-nut-fibre.jpg"
+              image="https://img.freepik.com/free-photo/front-view-indian-man-posing-studio_23-2150692695.jpg?semt=ais_hybrid&w=740&q=80"
               name={partner.name}
               description={partner.description}
               onEdit={() => navigate(`${partner.id}${Paths.EditPartner}`)}

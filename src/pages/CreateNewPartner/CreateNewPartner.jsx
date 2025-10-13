@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams  } from "react-router-dom";
 import "./createNewPartner.css";
 import { handleChange, handleSubmit, fetchPartner } from "./handlers";
+import Error from "../Error/Error";
+import SubmitButton from "../../components/submitButton/SubmitButton";
 
 const CreateNewPartner = () => {
   const navigate = useNavigate();
@@ -10,15 +12,18 @@ const CreateNewPartner = () => {
     description: "",
     phone: "",
   });
+  const [error, setError] = useState(null);
   const { partnerId } = useParams();
   const token = localStorage.getItem('authToken');
   const organizationId = sessionStorage.getItem('currentOrganizationId')
 
   useEffect(() => {
     if (partnerId) {
-      fetchPartner(partnerId, setFormData);
+      fetchPartner(partnerId, setFormData, setError);
     }
   }, [partnerId, token, organizationId]);
+
+  if (error) return <Error message={error} />;
 
   return (
     <div className="create-partner-container">
@@ -60,9 +65,9 @@ const CreateNewPartner = () => {
           />
         </div>
 
-        <button type="submit" className="submit-btn">
-            {partnerId ? "Update Partner" : "Create Partner"}
-        </button>
+        <SubmitButton
+          text= {partnerId ? "Update Partner" : "Create Partner"}
+        />
       </form>
     </div>
   );

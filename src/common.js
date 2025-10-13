@@ -7,7 +7,7 @@ export const applyColorVariables = (colorVars) => {
     });
 };
 
-export const fetchData = async (navigate, setData, setHasError, path, headers) => {
+export const fetchData = async (navigate, setData, setError, path, headers) => {
   const token = localStorage.getItem('authToken');
   if (!token) {
     navigate('/login');
@@ -21,14 +21,14 @@ export const fetchData = async (navigate, setData, setHasError, path, headers) =
         ...headers
       }
     });
-    if (!response.ok) {
-      setHasError(true);
-    }
     const responseJson = await response.json();
+    if ( responseJson.statusCode != 200 ) {
+      setError(responseJson.message);
+    }
     setData(responseJson.data);
   }
   catch (error) {
     console.error(`Error fetching ${path}`, error);
-    setHasError(true);
+    setError(error.message);
   }
 };

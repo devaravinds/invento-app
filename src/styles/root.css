@@ -1,0 +1,15 @@
+/* Default fallback values */
+:root {
+  --primary-color: red;                 /* REACT_APP_PRIMARY_COLOR */
+  --primary-hover-color: darkred;       /* REACT_APP_PRIMARY_HOVER_COLOR */
+  --background-color: white;            /* REACT_APP_BACKGROUND_COLOR */
+  --text-primary: black;                /* REACT_APP_TEXT_PRIMARY */
+  --text-secondary: grey;               /* REACT_APP_TEXT_SECONDARY */
+  --border-color: lightblue;            /* REACT_APP_BORDER_COLOR */
+  --error-color: red;                   /* REACT_APP_ERROR_COLOR */
+  --success-color: green;               /* REACT_APP_SUCCESS_COLOR */
+  --gradient-start: lightgray;          /* REACT_APP_GRADIENT_START */
+  --gradient-end: lightgray;            /* REACT_APP_GRADIENT_END */
+  --button-color: dodgerblue;           /* REACT_APP_BUTTON_COLOR */       
+  --button-hover-color: mediumblue;     /* REACT_APP_BUTTON_HOVER_COLOR */      
+}

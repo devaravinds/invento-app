@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Outlet } from "react-router-dom";
 import { fetchData } from "../../common";
 import Error from "../Error/Error";
 import "./transactions.css";
+import "../../styles/modal.css"
 import { Paths } from "../../constants/Paths";
 import TransactionTile from "../../components/transactionTile/TransactionTile";
 import { AddNewButton } from "../../components/addNewButton/AddNewButton";

@@ -9,18 +9,18 @@ import { Paths } from "../../constants/Paths";
 const Products = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState(null);
   useEffect(() => {
       fetchData(
         navigate, 
         setProducts, 
-        setHasError, 
+        setError, 
         Paths.Products, 
         { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
       );
   }, [navigate])
 
-  if (hasError) return <Error />;
+  if (error) return <Error message={error} />;
   return (
     <div className="products-page">
       <h2 className="products-title">Products</h2>

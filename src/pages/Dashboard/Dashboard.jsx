@@ -10,25 +10,25 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [organizations, setOrganizations] = useState([]);
   const [activeItem, setActiveItem] = useState("/products");
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState(null);
   useEffect(() => {
     fetchData(
       navigate,
       setOrganizations,
-      setHasError,
+      setError,
       "/users/current/organizations"
     );
   }, [navigate]);
 
   useEffect(() => {
-    if (organizations.length > 0) {
+    if (organizations?.length > 0) {
       const orgId = organizations[0].id;
       sessionStorage.setItem("currentOrganizationId", orgId);
       navigate(`${orgId}${activeItem}`);
     }
   }, [organizations, navigate, activeItem]);
 
-  if (hasError) return <Error />;
+  if (error) return <Error message={error} />;
   return (
     <ErrorBoundary>
       <div className="dashboard-container">

@@ -9,51 +9,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px; /* Adds space between the header and the grid */
-}
-
-.add-new-btn {
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #fff;
-  background-color: #007bff; /* A standard blue color, change as needed */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.add-new-btn:hover {
-  background-color: #0056b3; /* A darker blue for hover effect */
+  margin-bottom: 24px;
 }
 
 .partners-content {
   transition: filter 0.3s ease;
-}
-.outlet-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.outlet-modal-content {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  width: 90%;
-  max-height: 90%;
-  overflow-y: auto;
-  position: relative;
-  z-index: 1001;
 }
