@@ -1,82 +1,76 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { TransactionType } from "../../constants/Transaction";
+import { useNavigate, useParams } from "react-router-dom";
+import { TransactionType, TransactionStatus } from "../../constants/Transaction";
 import "./addNewTransaction.css";
 import { fetchData } from "../../common";
 import { Paths } from "../../constants/Paths";
-import { handleSubmit } from "./handlers";
+import { fetchTransaction, handleSubmit } from "./handlers";
 import SubmitButton from "../../components/submitButton/SubmitButton";
-
+import Error from "../Error/Error";
 
 const AddNewTransaction = () => {
-  const navigate = useNavigate();
-  const [hasError, setHasError] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [partners, setPartners] = useState([]);
-  const [outlets, setOutlets] = useState([]);
-  const [units, setUnits] = useState([]);
-  const [loading, setLoading] = useState(true);
+  console.log("Rendering AddNewTransaction");
 
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     productId: "",
     partnerId: "",
     rate: "",
     outletId: "",
     quantity: {
-      count: "", 
-      unit: ""
+      count: "",
+      unit: "",
     },
-    transactionType: TransactionType.PURCHASE
+    transactionType: TransactionType.PURCHASE,
+    transactionStatus: TransactionStatus.PENDING,
+    dueDate: "",
+    paidOn: "",
   });
+  const [error, setError] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [partners, setPartners] = useState([]);
+  const [outlets, setOutlets] = useState([]);
+  const [units, setUnits] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+
+  const { transactionId } = useParams();
+
+  const token = localStorage.getItem('authToken');
+  const organizationId = sessionStorage.getItem('currentOrganizationId')
 
   useEffect(() => {
-    fetchData(
-      navigate,
-      setProducts,
-      setHasError,
-      Paths.Products,
-      { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
-    )
-    fetchData(
-      navigate,
-      setPartners,
-      setHasError,
-      Paths.Partners,
-      { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
-    )
-    fetchData(
-      navigate,
-      setOutlets,
-      setHasError,
-      Paths.Outlets,
-      { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
-    )
-    fetchData(
-      navigate,
-      setUnits,
-      setHasError,
-      Paths.Units,
-      { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
-    )
-    setLoading(false)
-  }, [navigate])
+    if (transactionId) {
+      fetchTransaction(transactionId, setFormData, setError);
+    }
+  }, [transactionId, token, organizationId]);
+
+  useEffect(() => {
+    const orgId = sessionStorage.getItem("currentOrganizationId");
+    fetchData(navigate, setProducts, setError, Paths.Products, { "organization-id": orgId });
+    fetchData(navigate, setPartners, setError, Paths.Partners, { "organization-id": orgId });
+    fetchData(navigate, setOutlets, setError, Paths.Outlets, { "organization-id": orgId });
+    fetchData(navigate, setUnits, setError, Paths.Units, { "organization-id": orgId });
+    setLoading(false);
+  }, [navigate]);
+
+  if (error) return <Error message={error} />;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // If the change is for nested quantity fields
     if (name === "count" || name === "unit") {
       setFormData((prev) => ({
         ...prev,
         quantity: {
           ...prev.quantity,
-          [name]: value
-        }
+          [name]: value,
+        },
       }));
     } else {
       setFormData((prev) => ({
         ...prev,
-        [name]: value
+        [name]: value,
       }));
     }
   };
@@ -86,15 +80,13 @@ const AddNewTransaction = () => {
   return (
     <div className="add-transaction-container">
       <h2>Add New Transaction</h2>
-      <form onSubmit={(e) => handleSubmit(e, navigate, formData, setHasError)} className="add-transaction-form">
+      <form
+        onSubmit={(e) => handleSubmit(e, transactionId, navigate, formData, setError)}
+        className="add-transaction-form"
+      >
         <label>
           Product:
-          <select
-            name="productId"
-            value={formData.product}
-            onChange={handleChange}
-            required
-          >
+          <select name="productId" value={formData.productId} onChange={handleChange} required>
             <option value="">Select Product</option>
             {products.map((p) => (
               <option key={p.id} value={p.id}>
@@ -106,12 +98,7 @@ const AddNewTransaction = () => {
 
         <label>
           Partner:
-          <select
-            name="partnerId"
-            value={formData.partner}
-            onChange={handleChange}
-            required
-          >
+          <select name="partnerId" value={formData.partnerId} onChange={handleChange} required>
             <option value="">Select Partner</option>
             {partners.map((p) => (
               <option key={p.id} value={p.id}>
@@ -123,12 +110,7 @@ const AddNewTransaction = () => {
 
         <label>
           Outlet:
-          <select
-            name="outletId"
-            value={formData.outlet}
-            onChange={handleChange}
-            required
-          >
+          <select name="outletId" value={formData.outletId} onChange={handleChange} required>
             <option value="">Select Outlet</option>
             {outlets.map((o) => (
               <option key={o.id} value={o.id}>
@@ -140,13 +122,7 @@ const AddNewTransaction = () => {
 
         <label>
           Rate:
-          <input
-            type="number"
-            name="rate"
-            value={formData.rate}
-            onChange={handleChange}
-            required
-          />
+          <input type="number" name="rate" value={formData.rate} onChange={handleChange} required />
         </label>
 
         <label>
@@ -169,9 +145,9 @@ const AddNewTransaction = () => {
             required
           >
             <option value="">Select Unit</option>
-            {units.map((o) => (
-              <option key={o.id} value={o.id}>
-                {o.name}
+            {units.map((u) => (
+              <option key={u.id} value={u.id}>
+                {u.name}
               </option>
             ))}
           </select>
@@ -189,8 +165,43 @@ const AddNewTransaction = () => {
           </select>
         </label>
 
-        <SubmitButton
-          text= "Add Transaction"
+        <label>
+          Transaction Status:
+          <select
+            name="transactionStatus"
+            value={formData.transactionStatus}
+            onChange={handleChange}
+          >
+            <option value={TransactionStatus.PENDING}>Pending</option>
+            <option value={TransactionStatus.COMPLETED}>Completed</option>
+            <option value={TransactionStatus.CANCELLED}>Cancelled</option>
+          </select>
+        </label>
+
+        <label>
+          Due Date:
+          <input
+            type="datetime-local"
+            name="dueDate"
+            value={formData.dueDate}
+            onChange={handleChange}
+            disabled={formData.transactionStatus === TransactionStatus.COMPLETED}
+          />
+        </label>
+
+        <label>
+          Paid On:
+          <input
+            type="datetime-local"
+            name="paidOn"
+            value={formData.paidOn}
+            onChange={handleChange}
+            disabled={formData.transactionStatus !== TransactionStatus.COMPLETED}
+          />
+        </label>
+
+        <SubmitButton 
+          text = {transactionId ? "Update Transaction" : "Create Transaction"} 
         />
       </form>
     </div>

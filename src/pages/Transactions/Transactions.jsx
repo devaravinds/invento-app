@@ -28,7 +28,8 @@ const Transactions = () => {
 
   useEffect(() => {
     setIsOutletActive(
-      location.pathname.includes(Paths.AddTransaction)
+      location.pathname.includes(Paths.AddTransaction) ||
+      location.pathname.includes(Paths.EditTransaction)
     );
   }, [location.pathname]);
 
@@ -47,9 +48,12 @@ const Transactions = () => {
           transactions.map((transaction) => (
             <TransactionTile
               key={transaction.id}
+              transactionId={transaction.id}
               transactionStatus={transaction.transactionStatus}
               transactionType={transaction.transactionType}
               amount={transaction.amount}
+              paidOn={transaction.paidOn}
+              dueDate={transaction.dueDate}
             />
           ))
         ) : (

@@ -1,7 +1,6 @@
 export const TransactionStatus = {
     PENDING : 'PENDING',
-    COMPLETED : 'COMPLETED',
-    REFUNDED : 'REFUNDED'
+    COMPLETED : 'COMPLETED'
 }
 
 export const TransactionType = {

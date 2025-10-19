@@ -1,41 +1,56 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import SideBar from "../../components/sidebar/SideBar";
 import ErrorBoundary from "../../boundary/ErrorBoundary";
 import Error from "../Error/Error";
 import "./dashboard.css";
 import { fetchData } from "../../common";
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [organizations, setOrganizations] = useState([]);
-  const [activeItem, setActiveItem] = useState("/products");
-  const [error, setError] = useState(null);
+  const location = useLocation();
+
+  const getInitialActiveItem = () => {
+    if (location.pathname.includes("/transactions")) return "/transactions";
+    if (location.pathname.includes("/partners")) return "/partners";
+    if (location.pathname.includes("/inventory")) return "/inventory";
+    if (location.pathname.includes("/outlets")) return "/outlets";
+    if (location.pathname.includes("/units")) return "/units";
+    if (location.pathname.includes("/settings")) return "/settings";
+    return "/products";
+  };
+
+const [activeItem, setActiveItem] = useState(getInitialActiveItem());  const [error, setError] = useState(null);
+
   useEffect(() => {
-    fetchData(
-      navigate,
-      setOrganizations,
-      setError,
-      "/users/current/organizations"
-    );
+    fetchData(navigate, setOrganizations, setError, "/users/current/organizations");
   }, [navigate]);
 
   useEffect(() => {
-    if (organizations?.length > 0) {
+    if (organizations.length > 0) {
       const orgId = organizations[0].id;
       sessionStorage.setItem("currentOrganizationId", orgId);
+
+      if (location.pathname === "/dashboard" || location.pathname === "/dashboard/") {
+        navigate(`${orgId}${activeItem}`, { replace: true });
+      }
+    }
+  }, [organizations, navigate, location.pathname]);
+
+  useEffect(() => {
+    if (organizations.length > 0 && location.pathname.startsWith("/dashboard")) {
+      const orgId = organizations[0].id;
       navigate(`${orgId}${activeItem}`);
     }
-  }, [organizations, navigate, activeItem]);
-
+  }, [activeItem]);
   if (error) return <Error message={error} />;
+
   return (
     <ErrorBoundary>
       <div className="dashboard-container">
         <SideBar
-          currentOrganization={
-            organizations.length > 0 ? organizations[0].name : null
-          }
+          currentOrganization={organizations.length > 0 ? organizations[0].name : null}
           activeItem={activeItem}
           setActiveItem={setActiveItem}
         />

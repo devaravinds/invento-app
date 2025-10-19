@@ -54,6 +54,10 @@ export const Router = createBrowserRouter([
           {
             path: Paths.AddTransaction,
             element: <AddNewTransaction/>
+          },
+          {
+            path: ':transactionId' + Paths.EditTransaction,
+            element: <AddNewTransaction/>
           }
         ]
       },

@@ -10,5 +10,6 @@ export const Paths = {
     Settings: "/settings",
     EditPartner: "/edit-partner",
     AddPartner: "add-partner",
-    AddTransaction: "add-transaction"
+    AddTransaction: "add-transaction",
+    EditTransaction: "/edit-transaction",
 }

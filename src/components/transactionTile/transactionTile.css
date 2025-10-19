@@ -1,62 +1,116 @@
+/* ----------------------------------------------------------------
+   Transaction Tile Styling
+   A clean, responsive tile for displaying financial transactions.
+---------------------------------------------------------------- */
+
 .transaction-tile {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  padding: 16px 20px;
-  margin: 10px 0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  width: 750px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    margin-bottom: 0.75rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e5e7eb; /* Light border */
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background-color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    width: 50%;
 }
 
 .transaction-tile:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }
 
-/* Info Section */
-.transaction-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
+/* --- Status Modifiers: Left Border Color --- */
 
-/* Status Colors */
-.status-pending {
-  border-left: 4px solid #fbbf24; /* amber */
-}
-
+/* Completed (Success/Green) */
 .status-completed {
-  border-left: 4px solid #22c55e; /* green */
+    border-left: 6px solid #10b981; /* Emerald */
 }
 
-/* Transaction Type */
+/* Pending (Warning/Orange) */
+.status-pending {
+    border-left: 6px solid #f59e0b; /* Amber */
+}
+
+/* --- Left Section: Info (Type & Status) --- */
+
+.transaction-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
 .transaction-type {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    align-self: flex-start; /* Prevents stretching */
 }
 
+/* Type Colors */
 .type-purchase {
-  color: #ef4444; /* red */
+    background-color: #ef4444; /* Red for outgoing */
 }
 
 .type-sale {
-  color: #3b82f6; /* blue */
+    background-color: #3b82f6; /* Blue for incoming */
 }
 
-/* Status Label */
 .transaction-status {
-  font-size: 12px;
-  color: #6b7280;
+    font-size: 1rem;
+    color: #1f2937; /* Darker text */
+    font-weight: 600;
+    line-height: 1.5rem;
 }
 
-/* Amount Section */
+.transaction-date {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #6b7280; /* Gray for dates */
+    margin-left: 0.5rem;
+}
+
+/* --- Right Section: Actions (Amount & Dropdown) --- */
+
+.transaction-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .transaction-amount {
-  font-size: 16px;
-  font-weight: 700;
-  color: #111827;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #111827; /* Very dark text for emphasis */
+}
+
+/* --- Mobile Responsiveness --- */
+
+@media (max-width: 640px) {
+    .transaction-tile {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .transaction-info {
+        width: 100%;
+        margin-bottom: 0.75rem;
+    }
+
+    .transaction-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .transaction-amount {
+        font-size: 1.2rem;
+    }
 }
