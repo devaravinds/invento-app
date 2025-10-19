@@ -9,22 +9,20 @@ import SubmitButton from "../../components/submitButton/SubmitButton";
 import Error from "../Error/Error";
 
 const AddNewTransaction = () => {
-  console.log("Rendering AddNewTransaction");
-
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     productId: "",
     partnerId: "",
-    rate: "",
+    rate: "100",
     outletId: "",
     quantity: {
-      count: "",
+      count: "10",
       unit: "",
     },
     transactionType: TransactionType.PURCHASE,
     transactionStatus: TransactionStatus.PENDING,
-    dueDate: "",
-    paidOn: "",
+    dueDate: new Date().toISOString().slice(0, 16),
+    paidOn: new Date().toISOString().slice(0, 16)
   });
   const [error, setError] = useState(false);
   const [products, setProducts] = useState([]);
@@ -33,11 +31,9 @@ const AddNewTransaction = () => {
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   const { transactionId } = useParams();
-
-  const token = localStorage.getItem('authToken');
-  const organizationId = sessionStorage.getItem('currentOrganizationId')
+  const token = localStorage.getItem("authToken");
+  const organizationId = sessionStorage.getItem("currentOrganizationId");
 
   useEffect(() => {
     if (transactionId) {
@@ -47,14 +43,71 @@ const AddNewTransaction = () => {
 
   useEffect(() => {
     const orgId = sessionStorage.getItem("currentOrganizationId");
-    fetchData(navigate, setProducts, setError, Paths.Products, { "organization-id": orgId });
-    fetchData(navigate, setPartners, setError, Paths.Partners, { "organization-id": orgId });
-    fetchData(navigate, setOutlets, setError, Paths.Outlets, { "organization-id": orgId });
-    fetchData(navigate, setUnits, setError, Paths.Units, { "organization-id": orgId });
+
+    fetchData(
+      navigate,
+      (prod) => {
+        setProducts(prod);
+        setFormData((prev) => ({
+          ...prev,
+          productId: prev.productId || (prod?.[0]?.id ?? ""),
+        }));
+      },
+      setError,
+      Paths.Products,
+      { "organization-id": orgId }
+    );
+
+    fetchData(
+      navigate,
+      (part) => {
+        setPartners(part);
+        setFormData((prev) => ({
+          ...prev,
+          partnerId: prev.partnerId || (part?.[0]?.id ?? ""),
+        }));
+      },
+      setError,
+      Paths.Partners,
+      { "organization-id": orgId }
+    );
+
+    fetchData(
+      navigate,
+      (out) => {
+        setOutlets(out);
+        setFormData((prev) => ({
+          ...prev,
+          outletId: prev.outletId || (out?.[0]?.id ?? ""),
+        }));
+      },
+      setError,
+      Paths.Outlets,
+      { "organization-id": orgId }
+    );
+
+    fetchData(
+      navigate,
+      (unit) => {
+        setUnits(unit);
+        setFormData((prev) => ({
+          ...prev,
+          quantity: {
+            ...prev.quantity,
+            unit: prev.quantity.unit || (unit?.[0]?.id ?? ""),
+          },
+        }));
+      },
+      setError,
+      Paths.Units,
+      { "organization-id": orgId }
+    );
+
     setLoading(false);
   }, [navigate]);
 
   if (error) return <Error message={error} />;
+  if (loading) return <p>Loading...</p>;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,11 +128,9 @@ const AddNewTransaction = () => {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-
   return (
     <div className="add-transaction-container">
-      <h2>Add New Transaction</h2>
+      <h2>{transactionId ? "Edit Transaction" : "Add New Transaction"}</h2>
       <form
         onSubmit={(e) => handleSubmit(e, transactionId, navigate, formData, setError)}
         className="add-transaction-form"
@@ -138,12 +189,7 @@ const AddNewTransaction = () => {
 
         <label>
           Unit:
-          <select
-            name="unit"
-            value={formData.quantity.unit}
-            onChange={handleChange}
-            required
-          >
+          <select name="unit" value={formData.quantity.unit} onChange={handleChange} required>
             <option value="">Select Unit</option>
             {units.map((u) => (
               <option key={u.id} value={u.id}>
@@ -200,9 +246,7 @@ const AddNewTransaction = () => {
           />
         </label>
 
-        <SubmitButton 
-          text = {transactionId ? "Update Transaction" : "Create Transaction"} 
-        />
+        <SubmitButton text={transactionId ? "Update Transaction" : "Create Transaction"} />
       </form>
     </div>
   );

@@ -25,7 +25,6 @@ export const handleSubmit = async (e, transactionId, navigate, formData, setHasE
       setHasError(true)
     }
 
-    alert("Transaction added successfully!");
     navigate(-1);
   } catch (err) {
     setHasError(true);
