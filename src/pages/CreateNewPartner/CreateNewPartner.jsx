@@ -11,6 +11,14 @@ const CreateNewPartner = () => {
     name: "",
     description: "",
     phone: "",
+    address: {
+      line1: "",
+      line2: "",
+      city: "",
+      state: "",
+      pin: ""
+    },
+    gstNumber: ""
   });
   const [error, setError] = useState(null);
   const { partnerId } = useParams();
@@ -61,6 +69,72 @@ const CreateNewPartner = () => {
             name="phone"
             placeholder="Enter phone number"
             value={formData.phone}
+            onChange={(e) => handleChange(e, setFormData)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address.line1">Address Line 1</label>
+          <input
+            type="text"
+            id="address.line1"
+            name="address.line1"
+            placeholder="Enter address line 1"
+            value={formData.address.line1}
+            onChange={(e) => handleChange(e, setFormData)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address.line2">Address Line 2</label>
+          <input
+            type="text"
+            id="address.line2"
+            name="address.line2"
+            placeholder="Enter address line 2"
+            value={formData.address.line2}
+            onChange={(e) => handleChange(e, setFormData)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address.city">City</label>
+          <input
+            type="text"
+            id="address.city"
+            name="address.city"
+            placeholder="Enter city"
+            value={formData.address.city}
+            onChange={(e) => handleChange(e, setFormData)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address.state">State</label>
+          <input
+            type="text"
+            id="address.state"
+            name="address.state"
+            placeholder="Enter state"
+            value={formData.address.state}
+            onChange={(e) => handleChange(e, setFormData)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address.pin">PIN Code</label>
+          <input
+            type="text"
+            id="address.pin"
+            name="address.pin"
+            placeholder="Enter PIN code"
+            value={formData.address.pin}
+            onChange={(e) => handleChange(e, setFormData)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="gstNumber">GST Number</label>
+          <input
+            type="text"
+            id="gstNumber"
+            name="gstNumber"
+            placeholder="Enter GST number"
+            value={formData.gstNumber}
             onChange={(e) => handleChange(e, setFormData)}
           />
         </div>

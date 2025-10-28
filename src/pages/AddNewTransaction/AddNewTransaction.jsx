@@ -20,7 +20,7 @@ const AddNewTransaction = () => {
       unit: "",
     },
     transactionType: TransactionType.PURCHASE,
-    transactionStatus: TransactionStatus.PENDING,
+    transactionStatus: TransactionStatus.COMPLETED,
     dueDate: new Date().toISOString().slice(0, 16),
     paidOn: new Date().toISOString().slice(0, 16)
   });
@@ -218,9 +218,8 @@ const AddNewTransaction = () => {
             value={formData.transactionStatus}
             onChange={handleChange}
           >
-            <option value={TransactionStatus.PENDING}>Pending</option>
             <option value={TransactionStatus.COMPLETED}>Completed</option>
-            <option value={TransactionStatus.CANCELLED}>Cancelled</option>
+            <option value={TransactionStatus.PENDING}>Pending</option>
           </select>
         </label>
 

@@ -2,10 +2,23 @@ import { Paths } from "../../constants/Paths";
 
 export const handleChange = (e, setFormData) => {
   const { name, value } = e.target;
-  setFormData((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
+  setFormData((prev) => {
+    if (name.includes(".")) {
+      const [parent, child] = name.split(".");
+      return {
+        ...prev,
+        [parent]: {
+          ...prev[parent],
+          [child]: value,
+        },
+      };
+    }
+
+    return {
+      ...prev,
+      [name]: value,
+    };
+  });
 };
 
 export const handleSubmit = async (e, partnerId, formData, navigate) => {
@@ -55,12 +68,20 @@ export const fetchPartner = async (partnerId, setFormData, setError) => {
 
     const responseJson = await response.json();
 
-    if (responseJson.statusCode == 200) {
+    if (responseJson.statusCode === 200) {
       const data = responseJson.data
       setFormData({
         name: data.name || "",
         description: data.description || "",
         phone: data.phone || "",
+        address: {
+          line1: data.address?.line1 || "",
+          line2: data.address?.line2 || "",
+          city: data.address?.city || "",
+          state: data.address?.state || "",
+          pin: data.address?.pin || ""
+        },
+        gstNumber: data.gstNumber || ""
       });
     } else {
       setError(response.message)
