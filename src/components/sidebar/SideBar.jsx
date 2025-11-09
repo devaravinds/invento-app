@@ -26,7 +26,7 @@ const Sidebar = ({ currentOrganization, activeItem, setActiveItem }) => {
       <OrganizationSelector
         organizationName={currentOrganization}
         isActive={false}
-        onClick={() => alert("Organization Selector Clicked")}
+        onClick={() => alert("Coming Soon!")}
       />
       {navItems.map((item) => (
         <SideBarNavItem

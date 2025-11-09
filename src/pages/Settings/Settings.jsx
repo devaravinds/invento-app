@@ -1,6 +1,6 @@
 const Settings = () => {
   return <>
-    Settings Page
+    Coming Soon!
   </>
 };
 

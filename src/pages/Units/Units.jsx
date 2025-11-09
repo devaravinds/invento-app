@@ -1,6 +1,6 @@
 const Units = () => {
   return <>
-    Units Page
+    Coming Soon!
   </>
 };
 
