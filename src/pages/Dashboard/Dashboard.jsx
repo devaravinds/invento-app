@@ -36,14 +36,14 @@ const [activeItem, setActiveItem] = useState(getInitialActiveItem());  const [er
         navigate(`${orgId}${activeItem}`, { replace: true });
       }
     }
-  }, [organizations, navigate, location.pathname]);
+  }, [organizations, navigate, location.pathname, activeItem]);
 
   useEffect(() => {
     if (organizations.length > 0 && location.pathname.startsWith("/dashboard")) {
       const orgId = organizations[0].id;
       navigate(`${orgId}${activeItem}`);
     }
-  }, [activeItem, navigate]);
+  }, [activeItem, navigate, location.pathname, organizations]);
   if (error) return <Error message={error} />;
 
   return (
