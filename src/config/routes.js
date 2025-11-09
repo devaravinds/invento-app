@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import LoginPage from '../pages/Login/Login.jsx';
 import { Paths } from '../constants/Paths.jsx';
 import Dashboard from '../pages/Dashboard/Dashboard';
@@ -13,6 +13,10 @@ import Inventory from '../pages/Inventory/Inventory.jsx';
 import AddNewTransaction from '../pages/AddNewTransaction/AddNewTransaction.jsx';
 
 export const Router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Navigate to={Paths.Login} replace />,
+  },
   {
     path: Paths.Login,
     element: <LoginPage />,
