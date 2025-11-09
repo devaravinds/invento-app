@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchData } from "../../common";
 import Error from "../Error/Error";
-import Tile from "../../components/tile/Tile";
+import InventoryTile from "../../components/inventoryTile/InventoryTile";
 import "./inventory.css";
 import { Paths } from "../../constants/Paths";
 
@@ -26,11 +26,11 @@ const Inventory = () => {
       <div className="inventory-grid">
         {inventory.length > 0 ? (
           inventory.map((item) => (
-            <Tile
+            <InventoryTile
               key={item.id}
               image="https://ncfa.co.in/wp-content/uploads/2024/02/Areca-nut-fibre.jpg"
               name={item.name}
-              description={item.description}
+              quantityAvailable={item.quantityAvailable[0].count + " " + item.quantityAvailable[0].unitName}
             />
           ))
         ) : (

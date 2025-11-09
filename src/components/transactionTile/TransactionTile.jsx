@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TransactionStatus, TransactionType } from "../../constants/Transaction";
 import DropdownMenu from "../dropdownMenu/DropdownMenu"; 
-import { handleDeleteClick, handleToggleStatusClick } from "./handlers";
+import { handleDeleteClick, handlePrintClick, handleToggleStatusClick } from "./handlers";
 import "./transactionTile.css";
 import Error from "../../pages/Error/Error";
 import { useNavigate } from "react-router-dom";
@@ -75,7 +75,13 @@ const TransactionTile = ({ transactionId, transactionStatus: initialStatus, tran
         handleDeleteClick(transactionId, navigate, setError);
       }
     },
-    toggleStatusOptions
+    toggleStatusOptions,
+    {
+      text: "Generate Invoice",
+      onClick: () => {
+        handlePrintClick(transactionId, setError);
+      }
+    }
   ]
 
   if (error) return <Error message={error} />;

@@ -15,6 +15,7 @@ const CreateNewPartner = () => {
       line1: "",
       line2: "",
       city: "",
+      district: "",
       state: "",
       pin: ""
     },
@@ -102,6 +103,17 @@ const CreateNewPartner = () => {
             name="address.city"
             placeholder="Enter city"
             value={formData.address.city}
+            onChange={(e) => handleChange(e, setFormData)}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address.district">District</label>
+          <input
+            type="text"
+            id="address.district"
+            name="address.district"
+            placeholder="Enter district"
+            value={formData.address.district}
             onChange={(e) => handleChange(e, setFormData)}
           />
         </div>

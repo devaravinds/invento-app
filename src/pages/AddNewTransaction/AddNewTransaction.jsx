@@ -19,6 +19,7 @@ const AddNewTransaction = () => {
       count: "10",
       unit: "",
     },
+    gstPercentage: "5",
     transactionType: TransactionType.PURCHASE,
     transactionStatus: TransactionStatus.COMPLETED,
     dueDate: new Date().toISOString().slice(0, 16),
@@ -197,6 +198,11 @@ const AddNewTransaction = () => {
               </option>
             ))}
           </select>
+        </label>
+
+        <label>
+          GST Percentage:
+          <input type="number" name="gstPercentage" value={formData.gstPercentage} onChange={handleChange} required />
         </label>
 
         <label>

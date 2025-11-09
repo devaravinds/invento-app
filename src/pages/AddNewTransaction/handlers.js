@@ -7,7 +7,6 @@ export const handleSubmit = async (e, transactionId, navigate, formData, setHasE
       ? `${process.env.REACT_APP_API_URL}/transactions/${transactionId}`
       : `${process.env.REACT_APP_API_URL}/transactions`;
 
-  console.log("url:", url);
 
   const method = transactionId ? "PUT" : "POST";
   try {
