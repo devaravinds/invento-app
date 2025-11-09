@@ -43,7 +43,7 @@ const [activeItem, setActiveItem] = useState(getInitialActiveItem());  const [er
       const orgId = organizations[0].id;
       navigate(`${orgId}${activeItem}`);
     }
-  }, [activeItem]);
+  }, [activeItem, navigate]);
   if (error) return <Error message={error} />;
 
   return (

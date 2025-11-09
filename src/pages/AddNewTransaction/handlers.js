@@ -43,7 +43,7 @@ export const fetchTransaction = async (transactionId, setFormData, setError) => 
 
     const responseJson = await response.json();
 
-    if (responseJson.statusCode == 200) {
+    if (responseJson.statusCode === 200) {
       const data = responseJson.data
       setFormData({
         productId: data.productId,

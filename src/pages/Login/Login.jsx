@@ -23,7 +23,7 @@ const LoginPage = () => {
             navigate(Paths.Dashboard)
         }
         applyColorVariables(ColorVariables)
-    }, []);
+    }, [navigate]);
 
     const handleChange = (e) => handleInputChange(e, setFormData, errors, setErrors);
     const handleSubmit = (e) => handleFormSubmit(e, formData, setErrors, setIsLoading, navigate )

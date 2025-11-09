@@ -22,7 +22,7 @@ export const fetchData = async (navigate, setData, setError, path, headers) => {
       }
     });
     const responseJson = await response.json();
-    if ( responseJson.statusCode != 200 ) {
+    if ( responseJson.statusCode !== 200 ) {
       setError(responseJson.message);
     }
     setData(responseJson.data);
