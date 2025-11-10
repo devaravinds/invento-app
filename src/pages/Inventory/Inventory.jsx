@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchData } from "../../common";
+import { handleApiRequest } from "../../common";
 import Error from "../Error/Error";
 import InventoryTile from "../../components/inventoryTile/InventoryTile";
 import "./inventory.css";
@@ -9,17 +9,16 @@ import { Paths } from "../../constants/Paths";
 const Inventory = () => {
   const navigate = useNavigate();
   const [inventory, setInventory] = useState([]);
-  const [hasError, setHasError] = useState(false);
-  useEffect(() => {
-      fetchData(
+  const [error, setError] = useState({ message: null, statusCode: null });  useEffect(() => {
+      handleApiRequest(
         navigate, 
         setInventory, 
-        setHasError,
+        setError,
         Paths.Inventory, 
         { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
       );
   }, [navigate])
-  if (hasError) return <Error />;
+  if (error.statusCode) return <Error message={error.message} />;
   return (
     <div className="inventory-page">
       <h2 className="inventory-title">Inventory</h2>

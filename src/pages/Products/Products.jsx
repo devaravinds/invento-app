@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchData } from "../../common";
+import { handleApiRequest } from "../../common";
 import Error from "../Error/Error";
 import Tile from "../../components/tile/Tile";
 import "./products.css";
@@ -9,9 +9,9 @@ import { Paths } from "../../constants/Paths";
 const Products = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({ message: null, statusCode: null });  
   useEffect(() => {
-      fetchData(
+      handleApiRequest(
         navigate, 
         setProducts, 
         setError, 
@@ -20,7 +20,7 @@ const Products = () => {
       );
   }, [navigate])
 
-  if (error) return <Error message={error} />;
+  if (error.statusCode) return <Error message={error.message} />;
   return (
     <div className="products-page">
       <h2 className="products-title">Products</h2>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TransactionType, TransactionStatus } from "../../constants/Transaction";
 import "./addNewTransaction.css";
-import { fetchData } from "../../common";
+import { handleApiRequest } from "../../common";
 import { Paths } from "../../constants/Paths";
 import { fetchTransaction, handleSubmit } from "./handlers";
 import SubmitButton from "../../components/submitButton/SubmitButton";
@@ -25,7 +25,7 @@ const AddNewTransaction = () => {
     dueDate: new Date().toISOString().slice(0, 16),
     paidOn: new Date().toISOString().slice(0, 16)
   });
-  const [error, setError] = useState(false);
+  const [error, setError] = useState({ message: null, statusCode: null });  
   const [products, setProducts] = useState([]);
   const [partners, setPartners] = useState([]);
   const [outlets, setOutlets] = useState([]);
@@ -45,7 +45,7 @@ const AddNewTransaction = () => {
   useEffect(() => {
     const orgId = sessionStorage.getItem("currentOrganizationId");
 
-    fetchData(
+    handleApiRequest(
       navigate,
       (prod) => {
         setProducts(prod);
@@ -59,7 +59,7 @@ const AddNewTransaction = () => {
       { "organization-id": orgId }
     );
 
-    fetchData(
+    handleApiRequest(
       navigate,
       (part) => {
         setPartners(part);
@@ -73,7 +73,7 @@ const AddNewTransaction = () => {
       { "organization-id": orgId }
     );
 
-    fetchData(
+    handleApiRequest(
       navigate,
       (out) => {
         setOutlets(out);
@@ -87,7 +87,7 @@ const AddNewTransaction = () => {
       { "organization-id": orgId }
     );
 
-    fetchData(
+    handleApiRequest(
       navigate,
       (unit) => {
         setUnits(unit);
@@ -107,7 +107,7 @@ const AddNewTransaction = () => {
     setLoading(false);
   }, [navigate]);
 
-  if (error) return <Error message={error} />;
+  if (error.statusCode) return <Error message={error.message} />;
   if (loading) return <p>Loading...</p>;
 
   const handleChange = (e) => {

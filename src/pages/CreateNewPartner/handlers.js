@@ -44,7 +44,6 @@ export const handleSubmit = async (e, partnerId, formData, navigate) => {
     });
 
     if (response.ok) {
-      alert("Partner created successfully!");
       navigate(`/dashboard/${organizationId}/partners`);
     } else {
       alert("Failed to create partner");
@@ -84,10 +83,10 @@ export const fetchPartner = async (partnerId, setFormData, setError) => {
         gstNumber: data.gstNumber || ""
       });
     } else {
-      setError(response.message)
+      setError({ message: responseJson.message, statusCode: response.status });
     }
   } catch (error) {
     console.error(error);
-    setError(error.message)
+    setError({ message: error.message, statusCode: error.status });
   }
 };

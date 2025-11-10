@@ -11,12 +11,12 @@ export const handleToggleStatusClick = async (transactionId, setError) => {
             }
         });
         const responseJson = await response.json();
-        if (responseJson.statusCode !== 200) {
-            setError(responseJson.message)
+        if (response.status !== 200) {
+            setError({ message: responseJson.message, statusCode: response.status });
         }
     }
     catch (err) {
-        setError(err.message);
+        setError({ message: err.message, statusCode: err.status });
     }   
 }
 
@@ -36,10 +36,10 @@ export const handleDeleteClick = async (transactionId, navigate, setError) => {
         if (responseJson.statusCode === 200) {
             navigate(0);
         } else {
-            setError(responseJson.message);
+            setError({ message: responseJson.message, statusCode: response.status });
         }
     } catch (err) {
-        setError(err.message);
+        setError({ message: err.message, statusCode: err.status });
     }
 }
 
@@ -81,10 +81,10 @@ export const handlePrintClick = async (transactionId, setError) => {
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
         } else {
-            setError("Failed to generate PDF");
+            setError({ message: `Failed to generate PDF: ${response.statusText}`, statusCode: response.status });
         }
     } catch (err) {
-        setError(err.message);
+        setError({ message: err.message, statusCode: err.status });
     }
 };
 

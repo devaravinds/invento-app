@@ -4,7 +4,7 @@ import SideBar from "../../components/sidebar/SideBar";
 import ErrorBoundary from "../../boundary/ErrorBoundary";
 import Error from "../Error/Error";
 import "./dashboard.css";
-import { fetchData } from "../../common";
+import { handleApiRequest } from "../../common";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -21,10 +21,11 @@ const Dashboard = () => {
     return "/products";
   };
 
-const [activeItem, setActiveItem] = useState(getInitialActiveItem());  const [error, setError] = useState(null);
+const [activeItem, setActiveItem] = useState(getInitialActiveItem());  
+const [error, setError] = useState({ message: null, statusCode: null });
 
   useEffect(() => {
-    fetchData(navigate, setOrganizations, setError, "/users/current/organizations");
+    handleApiRequest(navigate, setOrganizations, setError, "/users/current/organizations");
   }, [navigate]);
 
   useEffect(() => {
@@ -44,7 +45,9 @@ const [activeItem, setActiveItem] = useState(getInitialActiveItem());  const [er
       navigate(`${orgId}${activeItem}`);
     }
   }, [activeItem, navigate]);
-  if (error) return <Error message={error} />;
+  if (error.statusCode) {
+    return <Error message={error.message} />
+  };
 
   return (
     <ErrorBoundary>

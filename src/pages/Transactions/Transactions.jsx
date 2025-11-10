@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
-import { fetchData } from "../../common";
+import { handleApiRequest } from "../../common";
 import Error from "../Error/Error";
 import "./transactions.css";
 import "../../styles/modal.css"
@@ -13,14 +13,14 @@ const Transactions = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [transactions, setTransactions] = useState([]);
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState({ message: null, statusCode: null });  
   const [isOutletActive, setIsOutletActive] = useState(false);
 
   useEffect(() => {
-      fetchData(
+      handleApiRequest(
         navigate, 
         setTransactions, 
-        setHasError,
+        setError,
         Paths.Transactions, 
         { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
       );
@@ -33,7 +33,7 @@ const Transactions = () => {
     );
   }, [location.pathname]);
 
-  if (hasError) return <Error />;
+  if (error.statusCode) return <Error message={error.message} />;
   return (
     <div className="transactions-page">
       <div className="transactions-header">

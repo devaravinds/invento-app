@@ -7,7 +7,7 @@ export const applyColorVariables = (colorVars) => {
     });
 };
 
-export const fetchData = async (navigate, setData, setError, path, headers) => {
+export const handleApiRequest = async (navigate, setData, setError, path, headers) => {
   const token = localStorage.getItem('authToken');
   if (!token) {
     navigate('/login');
@@ -22,13 +22,17 @@ export const fetchData = async (navigate, setData, setError, path, headers) => {
       }
     });
     const responseJson = await response.json();
-    if ( responseJson.statusCode !== 200 ) {
-      setError(responseJson.message);
+    if (response.status == 401) {
+      localStorage.removeItem('authToken');
+      navigate('/login');
+    }
+    if (response.status !== 200) {
+      setError({ message: responseJson.message, statusCode: response.status });
     }
     setData(responseJson.data);
   }
   catch (error) {
     console.error(`Error fetching ${path}`, error);
-    setError(error.message);
+    setError({ message: error.message, statusCode: error.status });
   }
 };

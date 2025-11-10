@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Paths } from "../../constants/Paths";
 
 const TransactionTile = ({ transactionId, transactionStatus: initialStatus, transactionType, amount, paidOn: initialPaidOn, dueDate: initialDueDate }) => {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({ message: null, statusCode: null });
   const navigate = useNavigate();
   const [status, setStatus] = useState(initialStatus);
   const [paidOn, setPaidOn] = useState(initialPaidOn);
@@ -57,7 +57,7 @@ const TransactionTile = ({ transactionId, transactionStatus: initialStatus, tran
           });
 
         } catch (err) {
-          setError(err.message || "Something went wrong");
+          setError({ message: err.message, statusCode: err.status });
         }
       },
     }
@@ -84,7 +84,7 @@ const TransactionTile = ({ transactionId, transactionStatus: initialStatus, tran
     }
   ]
 
-  if (error) return <Error message={error} />;
+  if (error.statusCode) return <Error message={error.message} />;
 
   return (
     <div className={`transaction-tile ${statusClass}`}>

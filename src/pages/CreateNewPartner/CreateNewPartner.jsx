@@ -21,7 +21,7 @@ const CreateNewPartner = () => {
     },
     gstNumber: ""
   });
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({ message: null, statusCode: null });
   const { partnerId } = useParams();
   const token = localStorage.getItem('authToken');
   const organizationId = sessionStorage.getItem('currentOrganizationId')
@@ -32,7 +32,7 @@ const CreateNewPartner = () => {
     }
   }, [partnerId, token, organizationId]);
 
-  if (error) return <Error message={error} />;
+  if (error.statusCode) return <Error message={error.message} />;
 
   return (
     <div className="create-partner-container">

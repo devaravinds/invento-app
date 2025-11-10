@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchData } from "../../common";
+import { handleApiRequest } from "../../common";
 import Error from "../Error/Error";
 import Tile from "../../components/tile/Tile";
 import "./outlets.css";
@@ -9,9 +9,8 @@ import { Paths } from "../../constants/Paths";
 const Outlets = () => {
   const navigate = useNavigate();
   const [outlets, setOutlets] = useState([]);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-      fetchData(
+  const [error, setError] = useState({ message: null, statusCode: null });  useEffect(() => {
+      handleApiRequest(
         navigate, 
         setOutlets, 
         setError, 
@@ -19,7 +18,7 @@ const Outlets = () => {
         { 'organization-id': sessionStorage.getItem('currentOrganizationId') }
       );
   }, [navigate])
-  if (error) return <Error message={error} />;
+  if (error.statusCode) return <Error message={error.message} />;
   return (
     <div className="outlets-page">
       <h2 className="outlets-title">Outlets</h2>

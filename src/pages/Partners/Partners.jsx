@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
-import { fetchData } from "../../common";
+import { handleApiRequest } from "../../common";
 import Error from "../Error/Error";
 import Tile from "../../components/tile/Tile";
 import "./partners.css";
@@ -13,11 +13,11 @@ const Partners = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [partners, setPartners] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({ message: null, statusCode: null });  
   const [isOutletActive, setIsOutletActive] = useState(false);
 
   useEffect(() => {
-    fetchData(
+    handleApiRequest(
       navigate,
       setPartners,
       setError,
@@ -33,7 +33,7 @@ const Partners = () => {
     );
   }, [location.pathname]);
 
-  if (error) return <Error message={error} />;
+  if (error.statusCode) return <Error message={error.message} />;
 
   return (
     <div className="partners-page">

@@ -60,10 +60,10 @@ export const fetchTransaction = async (transactionId, setFormData, setError) => 
         paidOn: data.paidOn,
       });
     } else {
-      setError(response.message)
+      setError({ message: responseJson.message, statusCode: response.status });
     }
   } catch (error) {
     console.error(error);
-    setError(error.message)
+    setError({ message: error.message, statusCode: error.status });
   }
 };
